@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="pe.edu.upeu.Controller.PersonaController"
+      spacing="10" style="-fx-padding: 15;">
+
+    <Label text="Sistema de Registro - Personas de la Tercera Edad"
+           style="-fx-font-size: 18px; -fx-font-weight: bold;"/>
+
+    <!-- Formulario -->
+    <TitledPane text="Datos del Registro" collapsible="false">
+        <GridPane hgap="10" vgap="8" style="-fx-padding: 10;">
+            <Label text="Nombre Completo:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+            <TextField fx:id="txtNombre" GridPane.rowIndex="0" GridPane.columnIndex="1" prefWidth="300"/>
+
+            <Label text="Edad:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+            <TextField fx:id="txtEdad" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+
+            <Label text="CURP:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+            <TextField fx:id="txtCurp" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+
+            <Label text="Domicilio:" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+            <TextField fx:id="txtDomicilio" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+
+            <Label text="Tipo de Pensión:" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
+            <ComboBox fx:id="cbTipoPension" GridPane.rowIndex="4" GridPane.columnIndex="1" maxWidth="Infinity"/>
+
+            <Label text="Estado de Salud:" GridPane.rowIndex="5" GridPane.columnIndex="0"/>
+            <ComboBox fx:id="cbEstadoSalud" GridPane.rowIndex="5" GridPane.columnIndex="1" maxWidth="Infinity"/>
+        </GridPane>
+    </TitledPane>
+
+    <!-- Botones CRUD -->
+    <HBox spacing="10">
+        <Button text="Guardar" onAction="#onGuardar" style="-fx-background-color: #2196F3; -fx-text-fill: white;"/>
+        <Button text="Actualizar" onAction="#onActualizar" style="-fx-background-color: #FF9800; -fx-text-fill: white;"/>
+        <Button text="Eliminar" onAction="#onEliminar" style="-fx-background-color: #F44336; -fx-text-fill: white;"/>
+    </HBox>
+
+    <!-- Filtros -->
+    <TitledPane text="Filtros" collapsible="false">
+        <HBox spacing="10" style="-fx-padding: 8;">
+            <Label text="Edad mín:"/>
+            <TextField fx:id="txtEdadMin" prefWidth="60"/>
+            <Label text="Edad máx:"/>
+            <TextField fx:id="txtEdadMax" prefWidth="60"/>
+            <Button text="Filtrar por Edad" onAction="#onFiltrarEdad"/>
+            <Label text=" | "/>
+            <Label text="Pensión:"/>
+            <ComboBox fx:id="cbFiltroTipoPension" prefWidth="130"/>
+            <Button text="Filtrar por Pensión" onAction="#onFiltrarPension"/>
+            <Button text="Filtrar" onAction="#onFiltrarAvanzado"/>
+            <Button text="Limpiar filtros" onAction="#onLimpiarFiltros"
+                    style="-fx-background-color: #9E9E9E; -fx-text-fill: white;"/>
+        </HBox>
+    </TitledPane>
+
+    <!-- Tabla -->
+    <TableView fx:id="tblPersonas" VBox.vgrow="ALWAYS">
+        <columns>
+            <TableColumn fx:id="colId"          text="ID"           prefWidth="40"/>
+            <TableColumn fx:id="colNombre"      text="Nombre Completo" prefWidth="200"/>
+            <TableColumn fx:id="colEdad"        text="Edad"         prefWidth="50"/>
+            <TableColumn fx:id="colCurp"        text="CURP"         prefWidth="160"/>
+            <TableColumn fx:id="colDomicilio"   text="Domicilio"    prefWidth="200"/>
+            <TableColumn fx:id="colTipoPension" text="Tipo Pensión" prefWidth="110"/>
+            <TableColumn fx:id="colEstadoSalud" text="Estado Salud" prefWidth="110"/>
+        </columns>
+    </TableView>
+
+    <Label fx:id="lblMensaje" style="-fx-text-fill: #388E3C; -fx-font-weight: bold;"/>
+</VBox>

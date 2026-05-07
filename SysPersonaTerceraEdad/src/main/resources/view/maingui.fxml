@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="pe.edu.upeu.Controller.MainguiController">
+
+    <top>
+        <VBox style="-fx-background-color: #1565C0; -fx-padding: 10;">
+            <Label text="Sistema de Personas de la Tercera Edad"
+                   style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: white;"/>
+            <MenuBar style="-fx-background-color: transparent;">
+                <Menu text="Módulos" style="-fx-text-fill: white;">
+                    <MenuItem text="Personas" onAction="#abrirPersonas"/>
+                </Menu>
+            </MenuBar>
+        </VBox>
+    </top>
+
+    <center>
+        <AnchorPane fx:id="contentPane" style="-fx-background-color: #F5F5F5;"/>
+    </center>
+
+</BorderPane>

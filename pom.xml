@@ -1,0 +1,412 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>pe.edu.upeu</groupId>
+  <artifactId>SysPersonaTerceraEdad1</artifactId>
+  <version>0.1</version>
+  <packaging>${packaging}</packaging>
+
+  <parent>
+    <groupId>io.micronaut.platform</groupId>
+    <artifactId>micronaut-parent</artifactId>
+    <version>4.10.13</version>
+  </parent>
+
+  <properties>
+    <packaging>jar</packaging>
+    <jdk.version>17</jdk.version>
+    <release.version>17</release.version>
+    <micronaut.version>4.10.13</micronaut.version>
+    <micronaut.aot.enabled>false</micronaut.aot.enabled>
+    <micronaut.aot.packageName>pe.edu.upeu.aot.generated</micronaut.aot.packageName>
+    <exec.mainClass>pe.edu.upeu.Application</exec.mainClass>
+
+    <maven.compiler.release>17</maven.compiler.release>
+    <javafx.version>17.0.12</javafx.version>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <micronaut.maven.plugin.version>4.11.6</micronaut.maven.plugin.version>
+    <maven.compiler.plugin.version>3.15.0</maven.compiler.plugin.version>
+
+  </properties>
+
+  <repositories>
+    <repository>
+      <id>central</id>
+      <url>https://repo.maven.apache.org/maven2</url>
+    </repository>
+  </repositories>
+
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>io.micronaut.platform</groupId>
+        <artifactId>micronaut-platform</artifactId>
+        <version>${micronaut.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+
+  <dependencies>
+    <!-- ===== MICRONAUT CORE ===== -->
+    <dependency>
+      <groupId>io.micronaut</groupId>
+      <artifactId>micronaut-inject</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>io.micronaut</groupId>
+      <artifactId>micronaut-runtime</artifactId>
+    </dependency>
+    <!-- ===== MICRONAUT DATA JDBC — sin Hibernate, sin ByteBuddy ===== -->
+    <dependency>
+      <groupId>io.micronaut.data</groupId>
+      <artifactId>micronaut-data-jdbc</artifactId>
+      <exclusions>
+        <!-- Excluir soporte Oracle que no necesitamos -->
+        <exclusion>
+          <groupId>io.micronaut.data</groupId>
+          <artifactId>micronaut-data-jdbc-oracle</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+
+
+    <dependency>
+      <groupId>io.micronaut.sql</groupId>
+      <artifactId>micronaut-jdbc-hikari</artifactId>
+    </dependency>
+    <!-- ===== JAKARTA PERSISTENCE API (solo anotaciones, sin Hibernate) ===== -->
+    <dependency>
+      <groupId>jakarta.persistence</groupId>
+      <artifactId>jakarta.persistence-api</artifactId>
+      <version>3.1.0</version>
+    </dependency>
+    <!-- ===== H2 BASE DE DATOS EMBEBIDA (reemplaza SQLite) ===== -->
+    <dependency>
+      <groupId>com.h2database</groupId>
+      <artifactId>h2</artifactId>
+    </dependency>
+    <!-- ===== JACKSON ===== -->
+    <dependency>
+      <groupId>io.micronaut</groupId>
+      <artifactId>micronaut-jackson-databind</artifactId>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.fasterxml.jackson.datatype</groupId>
+      <artifactId>jackson-datatype-jsr310</artifactId>
+    </dependency>
+    <!-- ===== VALIDACIÓN ===== -->
+    <dependency>
+      <groupId>io.micronaut.validation</groupId>
+      <artifactId>micronaut-validation</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.hibernate.validator</groupId>
+      <artifactId>hibernate-validator</artifactId>
+      <version>8.0.1.Final</version>
+    </dependency>
+    <dependency>
+      <groupId>org.glassfish.expressly</groupId>
+      <artifactId>expressly</artifactId>
+      <version>5.0.0</version>
+    </dependency>
+
+    <dependency>
+      <groupId>ch.qos.logback</groupId>
+      <artifactId>logback-classic</artifactId>
+      <scope>runtime</scope>
+    </dependency>
+    <!-- ===== LOMBOK ===== -->
+    <dependency>
+      <groupId>org.projectlombok</groupId>
+      <artifactId>lombok</artifactId>
+      <scope>provided</scope>
+    </dependency>
+
+    <!-- ===== JAVAFX ===== -->
+    <dependency>
+      <groupId>org.openjfx</groupId>
+      <artifactId>javafx-controls</artifactId>
+      <version>${javafx.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.openjfx</groupId>
+      <artifactId>javafx-fxml</artifactId>
+      <version>${javafx.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.openjfx</groupId>
+      <artifactId>javafx-swing</artifactId>
+      <version>${javafx.version}</version>
+    </dependency>
+    <!-- ===== JASPER REPORTS ===== -->
+    <dependency>
+      <groupId>net.sf.jasperreports</groupId>
+      <artifactId>jasperreports</artifactId>
+      <version>6.21.5</version>
+    </dependency>
+    <dependency>
+      <groupId>com.miglayout</groupId>
+      <artifactId>miglayout</artifactId>
+      <version>3.7.4</version>
+    </dependency>
+    <dependency>
+      <groupId>win.zqxu</groupId>
+      <artifactId>jrviewer-fx</artifactId>
+      <version>0.1.1</version>
+    </dependency>
+
+    <!-- ===== APACHE POI ===== -->
+    <dependency>
+      <groupId>org.apache.poi</groupId>
+      <artifactId>poi-ooxml</artifactId>
+      <version>5.2.3</version>
+    </dependency>
+
+    <!-- ===== JSON ===== -->
+    <dependency>
+      <groupId>org.jsoup</groupId>
+      <artifactId>jsoup</artifactId>
+      <version>1.18.1</version>
+    </dependency>
+    <dependency>
+      <groupId>com.google.code.gson</groupId>
+      <artifactId>gson</artifactId>
+      <version>2.11.0</version>
+    </dependency>
+
+    <!-- ===== ESC/POS ===== -->
+    <dependency>
+      <groupId>com.github.anastaciocintra</groupId>
+      <artifactId>escpos-coffee</artifactId>
+      <version>4.1.0</version>
+    </dependency>
+
+    <!-- ===== LOGGING ===== -->
+    <dependency>
+      <groupId>ch.qos.logback</groupId>
+      <artifactId>logback-classic</artifactId>
+    </dependency>
+    <!-- ═══ Bootstrap ═══ -->
+    <dependency>
+      <groupId>org.kordamp.bootstrapfx</groupId>
+      <artifactId>bootstrapfx-core</artifactId>
+      <version>0.4.0</version>
+    </dependency>
+    <dependency>
+      <groupId>io.micronaut.test</groupId>
+      <artifactId>micronaut-test-junit5</artifactId>
+      <scope>test</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-api</artifactId>
+      <scope>test</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-engine</artifactId>
+      <scope>test</scope>
+    </dependency>
+
+  </dependencies>
+  <build>
+    <resources>
+      <resource>
+        <directory>src/main/resources</directory>
+        <includes>
+          <include>**/*</include>
+        </includes>
+      </resource>
+    </resources>
+    <plugins>
+      <!-- JavaFX -->
+      <plugin>
+        <groupId>org.openjfx</groupId>
+        <artifactId>javafx-maven-plugin</artifactId>
+        <version>0.0.8</version>
+        <configuration>
+          <mainClass>pe.edu.upeu.Application</mainClass>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>io.micronaut.maven</groupId>
+        <artifactId>micronaut-maven-plugin</artifactId>
+        <configuration>
+          <configFile>aot-${packaging}.properties</configFile>
+          <mainClass>pe.edu.upeu.Application</mainClass>
+          <testResourcesEnabled>false</testResourcesEnabled>
+        </configuration>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-enforcer-plugin</artifactId>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <configuration>
+          <!-- Uncomment to enable incremental compilation -->
+          <!-- <useIncrementalCompilation>false</useIncrementalCompilation> -->
+
+          <annotationProcessorPaths combine.self="override">
+            <path>
+              <groupId>org.projectlombok</groupId>
+              <artifactId>lombok</artifactId>
+              <version>${lombok.version}</version>
+            </path>
+            <path>
+              <groupId>io.micronaut</groupId>
+              <artifactId>micronaut-inject-java</artifactId>
+              <version>${micronaut.core.version}</version>
+            </path>
+            <path>
+              <groupId>io.micronaut</groupId>
+              <artifactId>micronaut-graal</artifactId>
+              <version>${micronaut.core.version}</version>
+            </path>
+
+            <!-- Micronaut Data JDBC — genera SQL en compilación -->
+            <path>
+              <groupId>io.micronaut.data</groupId>
+              <artifactId>micronaut-data-processor</artifactId>
+            </path>
+
+            <path>
+              <groupId>io.micronaut.validation</groupId>
+              <artifactId>micronaut-validation-processor</artifactId>
+              <version>${micronaut.validation.version}</version>
+              <exclusions>
+                <exclusion>
+                  <groupId>io.micronaut</groupId>
+                  <artifactId>micronaut-inject</artifactId>
+                </exclusion>
+              </exclusions>
+            </path>
+          </annotationProcessorPaths>
+          <compilerArgs>
+            <arg>-Amicronaut.processing.group=pe.edu.upeu</arg>
+            <arg>-Amicronaut.processing.module=SysPersonaTerceraEdad1</arg>
+          </compilerArgs>
+        </configuration>
+      </plugin>
+
+      <!-- Fat JAR con Shade para distribución -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-shade-plugin</artifactId>
+        <version>3.6.0</version>
+        <executions>
+          <execution>
+            <phase>package</phase>
+            <goals><goal>shade</goal></goals>
+            <configuration>
+              <transformers>
+                <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                  <mainClass>pe.edu.upeu.Application</mainClass>
+                </transformer>
+                <transformer implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer"/>
+              </transformers>
+              <filters>
+                <filter>
+                  <artifact>*:*</artifact>
+                  <excludes>
+                    <exclude>META-INF/*.SF</exclude>
+                    <exclude>META-INF/*.DSA</exclude>
+                    <exclude>META-INF/*.RSA</exclude>
+                    <exclude>META-INF/native-image/io.micronaut*/**</exclude>
+                    <exclude>META-INF/native-image/io.netty*/**</exclude>
+                  </excludes>
+                </filter>
+              </filters>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+
+
+    </plugins>
+  </build>
+
+  <!-- Perfil GraalVM Native -->
+  <profiles>
+    <profile>
+      <id>native</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-shade-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>default</id>
+                <phase>none</phase>
+              </execution>
+            </executions>
+          </plugin>
+
+          <plugin>
+            <groupId>org.graalvm.buildtools</groupId>
+            <artifactId>native-maven-plugin</artifactId>
+            <configuration>
+              <mainClass>pe.edu.upeu.Application</mainClass>
+              <imageName>SysPersonaTerceraEdad1</imageName>
+              <skipTests>true</skipTests>
+              <buildArgs>
+                <buildArg>--allow-incomplete-classpath</buildArg>
+                <buildArg>-H:+ReportExceptionStackTraces</buildArg>
+                <buildArg>-H:+AddAllCharsets</buildArg>
+                <!-- Dejar que GraalVM las inicialice en build-time (que es lo que hace naturalmente) -->
+                <!-- En vez de forzar run-time (que causa el error), aceptamos build-time -->
+                <buildArg>--initialize-at-build-time=io.micronaut.data.jdbc.convert.vendor.$OracleTypeConvertersFactory$FromOracleTimestampToTimestamp3$Definition</buildArg>
+                <buildArg>--initialize-at-build-time=io.micronaut.data.jdbc.mapper.$OracleJdbcJsonColumnMapper$Definition</buildArg>
+                <buildArg>--initialize-at-build-time=io.micronaut.data.jdbc.convert.vendor.$OracleTypeConvertersFactory$Definition</buildArg>
+                <buildArg>--initialize-at-build-time=io.micronaut.reactor.instrument.$ReactorAutomaticContextPropagation$Definition</buildArg>
+                <buildArg>--initialize-at-build-time=io.micronaut.data.jdbc.convert.vendor.$OracleTypeConvertersFactory$FromOracleDateToTimestamp0$Definition</buildArg>
+                <buildArg>--initialize-at-build-time=io.micronaut.data.jdbc.convert.vendor.$OracleTypeConvertersFactory$FromOracleTimestampToInstant5$Definition</buildArg>
+                <buildArg>--initialize-at-build-time=io.micronaut.reactor.convert.$ReactorToRxJava3ConverterRegistrar$Definition</buildArg>
+                <buildArg>--initialize-at-build-time=io.micronaut.transaction.test.$DefaultTestTransactionExecutionListener$Definition</buildArg>
+                <buildArg>--initialize-at-build-time=io.micronaut.data.jdbc.convert.vendor.$OracleTypeConvertersFactory$FromOracleDateToLocalDateTime1$Definition</buildArg>
+                <buildArg>--initialize-at-build-time=io.micronaut.http.ssl.$SelfSignedCertificateProvider$Definition</buildArg>
+                <buildArg>--initialize-at-build-time=io.micronaut.data.runtime.multitenancy.internal.$DefaultTenantResolver$Definition</buildArg>
+                <buildArg>--initialize-at-build-time=io.micronaut.logging.impl.$Log4jLoggingSystem$Definition</buildArg>
+                <buildArg>--initialize-at-build-time=io.micronaut.data.connection.kotlin.$DefaultCoroutineConnectionOperations$Definition</buildArg>
+                <buildArg>--initialize-at-build-time=io.micronaut.data.runtime.convert.$JakartaDataConverters$Definition</buildArg>
+                <buildArg>--initialize-at-build-time=io.micronaut.data.jdbc.convert.vendor.$OracleTypeConvertersFactory$FromOracleTimestampToLocalDateTime4$Definition</buildArg>
+                <buildArg>--initialize-at-build-time=io.micronaut.data.model.$DefaultPageSerializer$Definition</buildArg>
+                <buildArg>--initialize-at-build-time=io.micronaut.data.runtime.exceptions.jakarta.data.$MicronautDataJakartaDataExceptionConverter$Definition</buildArg>
+                <buildArg>--initialize-at-build-time=io.micronaut.data.runtime.support.convert.convert.jpa.$JxAttributeConverterProvider$Definition</buildArg>
+                <buildArg>--initialize-at-build-time=io.micronaut.validation.exceptions.$ConstraintExceptionHandler$Definition</buildArg>
+                <buildArg>--initialize-at-build-time=io.micronaut.reactor.convert.$ReactorToRxJava2ConverterRegistrar$Definition</buildArg>
+                <buildArg>--initialize-at-build-time=io.micronaut.data.runtime.support.convert.$KotlinFlow$Definition</buildArg>
+                <buildArg>--initialize-at-build-time=io.micronaut.data.jdbc.convert.vendor.$OracleTypeConvertersFactory$FromOracleDateToInstant2$Definition</buildArg>
+                <buildArg>--initialize-at-build-time=io.micronaut.data.model.$PageSerializer$Definition</buildArg>
+                <buildArg>--initialize-at-build-time=io.micronaut.transaction.kotlin.$DefaultCoroutineTransactionOperations$Definition</buildArg>
+
+                <!-- JasperReports sí necesita run-time (compila reportes dinámicamente) -->
+                <buildArg>--initialize-at-run-time=net.sf.jasperreports.engine.util.JRClassLoader</buildArg>
+                <buildArg>--initialize-at-run-time=net.sf.jasperreports.engine.JasperCompileManager</buildArg>
+              </buildArgs>
+            </configuration>
+            <executions>
+              <execution>
+                <id>build-native</id>
+                <goals><goal>compile-no-fork</goal></goals>
+                <phase>package</phase>
+              </execution>
+            </executions>
+          </plugin>
+
+
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
+</project>

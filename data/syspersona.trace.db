@@ -1,0 +1,4 @@
+2026-05-10 12:46:04.815246-05:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabla "PERSONA" ya existe
+Table "PERSONA" already exists; SQL statement:
+CREATE TABLE `persona` (`id` BIGINT AUTO_INCREMENT PRIMARY KEY,`nombre` VARCHAR(255) NOT NULL,`edad` INT NOT NULL,`curp` VARCHAR(255) NOT NULL,`domicilio` VARCHAR(255) NOT NULL,`tipo_pension` VARCHAR(255) NOT NULL,`estado_salud` VARCHAR(255) NOT NULL) [42101-232]
